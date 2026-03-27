@@ -1,0 +1,735 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+
+/* ─── ROOT VARIABLES ─────────────────────────────────── */
+:root {
+  --primary-bg: #1a1a2e;
+  --secondary-bg: #16213e;
+  --card-bg: #0f1419;
+  --panel-bg: rgba(13, 18, 28, 0.95);
+  --accent-blue: #00d4ff;
+  --accent-cyan: #00ffff;
+  --accent-pink: #ff006e;
+  --accent-purple: #8b5cf6;
+  --text-primary: #ffffff;
+  --text-secondary: #a0aec0;
+  --border-dim: rgba(0, 212, 255, 0.1);
+  --border-glow: rgba(0, 212, 255, 0.3);
+  --input-bg: rgba(0, 212, 255, 0.04);
+}
+
+/* ─── LAYOUT ─────────────────────────────────────────── */
+/* 
+  3-row grid on the left column:
+    row 1 = back button (auto height)
+    row 2 = config panel (fills rest)
+  Right column = plot area spanning both rows
+*/
+.ecdf-container {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 10px 14px;
+  padding: 14px;
+  height: 100vh;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 55%, #16213e 100%);
+  font-family: 'Figtree', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle grid background */
+.ecdf-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── BACK BUTTON ────────────────────────────────────── */
+/* In-flow: sits in grid row 1, col 1 — no overlap */
+.back-button {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  z-index: 10;
+  align-self: start;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid var(--border-glow);
+  border-radius: 8px;
+  padding: 5px 12px 5px 8px;
+  color: var(--accent-cyan);
+  font-family: 'Figtree', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.back-button:hover {
+  background: rgba(0, 212, 255, 0.14);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.22);
+  transform: translateX(-2px);
+}
+
+.back-button svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* ─── CONFIG PANEL ───────────────────────────────────── */
+/* Sits in grid row 2, col 1 */
+.config-panel {
+  grid-column: 1;
+  grid-row: 2;
+  position: relative;
+  z-index: 1;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-dim);
+  border-radius: 14px;
+  padding: 14px;
+  min-height: 0; /* critical for grid overflow */
+  box-sizing: border-box;
+  overflow-y: auto;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(0, 212, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.config-panel::-webkit-scrollbar { width: 4px; }
+.config-panel::-webkit-scrollbar-track { background: transparent; }
+.config-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.2);
+  border-radius: 4px;
+}
+
+/* ─── PLOT AREA ──────────────────────────────────────── */
+/* Spans both rows in col 2 */
+.plot-area {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  position: relative;
+  z-index: 1;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-dim);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  box-sizing: border-box;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(0, 212, 255, 0.06);
+  overflow: hidden;
+}
+
+/* corner accent brackets */
+.plot-area::before,
+.plot-area::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(0, 212, 255, 0.2);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 2;
+}
+.plot-area::before {
+  top: 12px; left: 12px;
+  border-width: 1.5px 0 0 1.5px;
+  border-radius: 2px 0 0 0;
+}
+.plot-area::after {
+  bottom: 12px; right: 12px;
+  border-width: 0 1.5px 1.5px 0;
+  border-radius: 0 0 2px 0;
+}
+
+.panel-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin: 0 0 12px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-dim);
+  flex-shrink: 0;
+}
+
+/* ─── FORM GROUPS ────────────────────────────────────── */
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.input-hint {
+  display: block;
+  font-size: 0.7rem;
+  color: rgba(160, 174, 192, 0.45);
+  margin-top: 3px;
+}
+
+/* ─── SELECT & INPUT ─────────────────────────────────── */
+.form-select,
+.form-input {
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-dim);
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: var(--input-bg);
+  padding-right: 28px;
+  cursor: pointer;
+}
+
+.form-select option {
+  background: #1a1a2e;
+  color: var(--text-primary);
+}
+
+.form-select:focus,
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background: rgba(0, 212, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+}
+
+.form-input[type="number"] { -moz-appearance: textfield; }
+.form-input[type="number"]::-webkit-inner-spin-button,
+.form-input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+/* ─── MODERN COLOR PICKER (compact) ─────────────────── */
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-dim);
+  border-radius: 7px;
+  padding: 5px 10px;        /* reduced from 6px */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.color-picker-wrapper:hover {
+  border-color: var(--border-glow);
+  background: rgba(0, 212, 255, 0.07);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+}
+
+.color-swatch {
+  width: 20px;              /* reduced from 26px */
+  height: 20px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.color-picker-wrapper:hover .color-swatch {
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+  transform: scale(1.08);
+}
+
+.color-hex-value {
+  font-family: 'Figtree', monospace;
+  font-size: 0.78rem;       /* slightly reduced */
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.color-edit-hint {
+  font-size: 0.66rem;
+  color: rgba(0, 212, 255, 0.35);
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+.color-picker-icon {
+  width: 12px;              /* reduced from 14px */
+  height: 12px;
+  color: var(--accent-blue);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.color-picker {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+/* ─── SLIDER ─────────────────────────────────────────── */
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slider {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(0, 212, 255, 0.15);
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.8);
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+}
+
+.slider-value {
+  min-width: 26px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  text-align: right;
+}
+
+/* ─── CHECKBOXES ─────────────────────────────────────── */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 7px;
+  padding: 7px 10px;
+  background: var(--input-bg);
+  border: 1px solid var(--border-dim);
+  border-radius: 7px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.checkbox-group:hover {
+  border-color: var(--border-glow);
+  background: rgba(0, 212, 255, 0.07);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.checkbox-group label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin: 0;
+  user-select: none;
+}
+
+/* ─── GENERATE BUTTON ────────────────────────────────── */
+.generate-button {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%);
+  border: 1px solid var(--border-glow);
+  color: var(--accent-cyan);
+  padding: 11px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.08);
+}
+
+.generate-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 28px rgba(0, 212, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+.generate-button:active:not(:disabled) { transform: translateY(0); }
+
+.generate-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── PLOT IMAGE ─────────────────────────────────────── */
+.plot-image {
+  max-width: 90%;
+  max-height: 86%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── DOWNLOAD BUTTON ────────────────────────────────── */
+.download-btn {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 212, 255, 0.07);
+  border: 1px solid var(--border-glow);
+  border-radius: 8px;
+  padding: 7px 13px 7px 10px;
+  color: var(--accent-cyan);
+  font-family: 'Figtree', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.download-btn:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.16);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.download-btn:disabled {
+  opacity: 0.22;
+  cursor: not-allowed;
+  color: var(--text-secondary);
+  border-color: rgba(0, 212, 255, 0.08);
+}
+
+.download-btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ─── LOADING STATE ──────────────────────────────────── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.spinner {
+  width: 38px;
+  height: 38px;
+  border: 2.5px solid rgba(0, 212, 255, 0.1);
+  border-top: 2.5px solid var(--accent-cyan);
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ─── EMPTY STATE ────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  opacity: 0.45;
+}
+
+.placeholder-icon {
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.placeholder-icon svg { width: 48px; height: 48px; }
+
+.placeholder-text {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .ecdf-container { grid-template-columns: 320px 1fr; }
+}
+
+@media (max-width: 768px) {
+  .ecdf-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+  .back-button { grid-column: 1; grid-row: 1; }
+  .config-panel { grid-column: 1; grid-row: 2; height: auto; max-height: 60vh; }
+  .plot-area { grid-column: 1; grid-row: 3; min-height: 300px; height: 40vh; }
+}
+
+/* ─── ECDF-SPECIFIC EXTRAS ───────────────────────────── */
+
+/* Label badge (e.g. "Required · 1–N") */
+.label-badge {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: rgba(0, 212, 255, 0.5);
+  letter-spacing: 0.3px;
+  text-transform: none;
+  margin-left: 6px;
+}
+
+/* ─── FIELD LIST ─────────────────────────────────────── */
+.field-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 7px;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-select {
+  flex: 1;
+  min-width: 0;
+}
+
+/* inline color swatch next to each field in per-field mode */
+.inline-color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.inline-color-swatch:hover {
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
+  transform: scale(1.1);
+}
+
+/* remove-field button */
+.remove-field-btn {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 0, 110, 0.08);
+  border: 1px solid rgba(255, 0, 110, 0.25);
+  border-radius: 6px;
+  color: var(--accent-pink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.remove-field-btn:hover {
+  background: rgba(255, 0, 110, 0.18);
+  border-color: rgba(255, 0, 110, 0.5);
+  box-shadow: 0 0 8px rgba(255, 0, 110, 0.2);
+}
+
+/* add-field button */
+.add-field-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px dashed rgba(0, 212, 255, 0.25);
+  border-radius: 7px;
+  padding: 6px 12px;
+  color: var(--accent-cyan);
+  font-family: 'Figtree', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.add-field-btn:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.12);
+  border-color: rgba(0, 212, 255, 0.45);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+}
+
+.add-field-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ─── SEGMENTED CONTROL ──────────────────────────────── */
+.segmented-control {
+  display: flex;
+  background: var(--input-bg);
+  border: 1px solid var(--border-dim);
+  border-radius: 7px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.seg-btn {
+  flex: 1;
+  padding: 6px 8px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border-dim);
+  color: var(--text-secondary);
+  font-family: 'Figtree', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.seg-btn:last-child {
+  border-right: none;
+}
+
+.seg-btn:hover:not(.active) {
+  background: rgba(0, 212, 255, 0.06);
+  color: var(--text-primary);
+}
+
+.seg-btn.active {
+  background: rgba(0, 212, 255, 0.14);
+  color: var(--accent-cyan);
+  box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.08);
+}
+
+/* ─── NESTED / HIGHLIGHT / LABEL-HINT ───────────────── */
+.form-group.nested {
+  margin-left: 12px;
+  padding-left: 10px;
+  border-left: 1px solid var(--border-dim);
+}
+
+.stats-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkbox-group.compact {
+  padding: 5px 10px;
+  margin-bottom: 0;
+}
+
+.checkbox-group.highlight {
+  border-color: rgba(0, 212, 255, 0.18);
+  background: rgba(0, 212, 255, 0.06);
+}
+
+.checkbox-group.highlight:hover {
+  border-color: rgba(0, 212, 255, 0.35);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.checkbox-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label-hint {
+  font-size: 0.65rem;
+  color: rgba(160, 174, 192, 0.5);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}

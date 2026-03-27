@@ -1,0 +1,77 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // ==============================
+    // File Layout
+    // ==============================
+    // "rootDir": "./src",      // Uncomment if you want to control source folder
+    // "outDir": "./dist",      // Uncomment if you want compiled output folder
+    // ==============================
+    // Environment Settings
+    // ==============================
+    "target": "ESNext", // Modern JS output
+    "lib": [
+      "DOM",
+      "ESNext"
+    ], // Required for browser + latest JS features
+    // ==============================
+    // Module System
+    // ==============================
+    // Use ESNext modules for Next.js
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    // ==============================
+    // JavaScript → TypeScript Migration
+    // ==============================
+    "allowJs": true, // Allow existing .js files
+    "checkJs": false, // Do not type-check JS files yet
+    // ==============================
+    // React / JSX Support
+    // ==============================
+    "jsx": "preserve", // Required for TSX
+    // ==============================
+    // Type Declarations
+    // ==============================
+    "types": ["react", "react-dom"],
+    // For Node projects, use:
+    // "types": ["node"]
+    // ==============================
+    // Output & Debugging
+    // ==============================
+    "sourceMap": true, // Easier debugging
+    // "declaration": true,     // Enable only if building a library
+    // "declarationMap": true,
+    // ==============================
+    // Strict Type Checking
+    // ==============================
+    "strict": true, // Enable all strict checks
+    "noUncheckedIndexedAccess": true, // Safer array/object access
+    "exactOptionalPropertyTypes": true, // Accurate optional props
+    // ==============================
+    // Compatibility & Performance
+    // ==============================
+    "esModuleInterop": true,
+    "isolatedModules": true, // Required by modern bundlers
+    "skipLibCheck": true, // Faster builds
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  // ==============================
+  // Files Included
+  // ==============================
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
