@@ -1,0 +1,305 @@
+/*
+  reset-password page.css — GraphViz Auth
+  Matches the main auth page design system
+*/
+
+:root {
+    --bg-dark:        #0D1117;
+    --bg-right:       #141B24;
+    --surface:        #1C2633;
+    --surface-hover:  #212E3E;
+    --border:         #2A3A4A;
+    --border-focus:   #00B4D8;
+    --text:           #E8EDF2;
+    --text-dim:       #8A9BB0;
+    --label:          #5A7A96;
+    --accent:         #00B4D8;
+}
+/* ── Variables inherited from root ── */
+.rp-wrapper {
+    position: fixed;
+    inset: 0;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "DM Sans", sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* dot grid background */
+.rp-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0, 180, 216, .08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.rp-container {
+    position: relative;
+    z-index: 1;
+    max-width: 440px;
+    width: 100%;
+    padding: 48px;
+    background: var(--bg-right);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    animation: rpFadeUp 0.4s ease both;
+}
+
+.rp-header {
+    margin-bottom: 32px;
+}
+
+.rp-title {
+    font-family: "DM Serif Display", serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.rp-subtitle {
+    font-size: 13.5px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-dim);
+}
+
+/* Alert box */
+.rp-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    border-radius: var(--r);
+    font-size: 14px;
+    line-height: 1.5;
+    animation: rpFadeUp 0.2s ease;
+}
+
+.rp-alert-success {
+    background: var(--success-dim);
+    border: 1px solid var(--success-border);
+    color: var(--success);
+}
+
+.rp-alert-error {
+    background: var(--error-dim);
+    border: 1px solid var(--error-border);
+    color: var(--error);
+}
+
+.rp-alert-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.rp-countdown {
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* Form fields */
+.rp-field {
+    margin-bottom: 20px;
+}
+
+.rp-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--label);
+}
+
+.rp-input-wrap {
+    position: relative;
+}
+
+.rp-input {
+    width: 100%;
+    padding: 12px 40px 12px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    background: var(--surface);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color var(--t), box-shadow var(--t), background var(--t);
+}
+
+.rp-input::placeholder {
+    color: #3A5060;
+    font-weight: 300;
+}
+
+.rp-input:focus {
+    border-color: var(--border-focus);
+    background: var(--surface-hover);
+    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+}
+
+.rp-input:-webkit-autofill,
+.rp-input:-webkit-autofill:hover,
+.rp-input:-webkit-autofill:focus,
+.rp-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 9999px var(--surface) inset !important;
+    box-shadow: 0 0 0 9999px var(--surface) inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    caret-color: var(--text);
+    border-color: var(--border-focus) !important;
+    transition: background-color 99999s ease-in-out 0s;
+}
+
+.rp-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--label);
+    padding: 4px;
+    font-size: 18px;
+    transition: color var(--t);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    user-select: none;
+}
+
+.rp-toggle-btn:hover {
+    color: var(--accent);
+}
+
+.rp-hint {
+    margin-top: 8px;
+    font-size: 13px;
+    animation: rpFadeUp 0.15s ease;
+}
+
+.rp-hint-error {
+    color: var(--error);
+}
+
+.rp-hint-success {
+    color: var(--success);
+}
+
+/* Submit button */
+.rp-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #0D1117;
+    border: none;
+    border-radius: var(--r);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: opacity var(--t), transform var(--t), box-shadow var(--t);
+    margin-top: 8px;
+}
+
+.rp-submit:hover:not(:disabled) {
+    opacity: 0.88;
+    box-shadow: 0 0 18px rgba(0, 180, 216, 0.35);
+}
+
+.rp-submit:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+.rp-submit:disabled {
+    background: #4A5A6A;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Footer */
+.rp-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.rp-link {
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--accent-border);
+    padding: 0 0 1px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    cursor: pointer;
+    transition: border-color var(--t), opacity var(--t);
+    opacity: 0.85;
+}
+
+.rp-link:hover {
+    opacity: 1;
+    border-color: var(--accent);
+}
+
+/* Loading state */
+.rp-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    text-align: center;
+}
+
+.rp-loading-text {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 300;
+}
+
+/* Animations */
+@keyframes rpFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+    .rp-container {
+        padding: 32px 24px;
+    }
+
+    .rp-title {
+        font-size: 24px;
+    }
+
+    .rp-wrapper {
+        padding: 16px;
+    }
+}

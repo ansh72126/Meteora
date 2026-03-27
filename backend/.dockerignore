@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Runtime/generated data should not be in the image context
+uploads/
+static/plots/
+
+# Local env/secrets are passed at runtime, not baked into image
+.env

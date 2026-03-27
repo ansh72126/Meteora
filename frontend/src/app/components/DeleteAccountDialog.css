@@ -1,0 +1,168 @@
+/* ── Overlay ── */
+.da-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: daOverlayIn .2s ease;
+  }
+  
+  @keyframes daOverlayIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  /* ── Dialog box ── */
+  .da-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    background: rgba(7, 13, 26, 0.98);
+    border: 3px solid rgba(255, 34, 34, 0.2);
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+    animation: daDialogIn .25s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  @keyframes daDialogIn {
+    from { opacity: 0; transform: scale(0.94) translateY(12px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
+  }
+  
+  /* ── Icon ── */
+  .da-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: rgba(255, 34, 34, 0.08);
+    border: 1px solid rgba(255, 34, 34, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .da-icon {
+    width: 24px;
+    height: 24px;
+    color: #ff2222;
+  }
+  
+  /* ── Text ── */
+  .da-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e0eeff;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  
+  .da-msg {
+    font-size: 0.8rem;
+    color: rgba(160, 195, 220, 0.65);
+    line-height: 1.75;
+    letter-spacing: 0.3px;
+    margin-bottom: 28px;
+    max-width: 300px;
+  }
+  
+  .da-msg-em {
+    color: #ff4444;
+    font-weight: 600;
+  }
+  
+  /* ── Buttons ── */
+  .da-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .da-btn-cancel {
+    flex: 1;
+    height: 42px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: rgba(180, 200, 220, 0.7);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  
+  .da-btn-cancel:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.14);
+    color: #c8ddf0;
+  }
+  
+  .da-btn-cancel:disabled { opacity: 0.4; cursor: not-allowed; }
+  
+  .da-btn-delete {
+    flex: 1;
+    height: 42px;
+    background: rgba(255, 34, 34, 0.12);
+    border: 1px solid rgba(255, 34, 34, 0.3);
+    border-radius: 8px;
+    color: #ff4444;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  
+  .da-btn-delete:hover:not(:disabled) {
+    background: rgba(255, 34, 34, 0.22);
+    border-color: rgba(255, 34, 34, 0.55);
+    color: #ff2222;
+  }
+  
+  .da-btn-delete:disabled { opacity: 0.5; cursor: not-allowed; }
+  
+  .da-btn-icon {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+  
+  /* ── Spinner ── */
+  .da-spinner {
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(255, 34, 34, 0.3);
+    border-top-color: #ff2222;
+    border-radius: 50%;
+    animation: daSpin .6s linear infinite;
+    flex-shrink: 0;
+  }
+  
+  @keyframes daSpin {
+    to { transform: rotate(360deg); }
+  }
