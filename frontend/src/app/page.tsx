@@ -219,7 +219,7 @@ export default function MeteoraLanding() {
       <nav className={`mtr-nav ${scrolled ? "mtr-nav--glass" : ""}`}>
         <div className="mtr-nav__inner">
           <button className="mtr-nav__logo" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <img src="/landing/meteora-cut-removebg-preview.png" alt="Meteora" className="mtr-nav__logo-img" />
+            <img src="/landing/meteora-cut-removebg-preview.png" alt="Meteora" className="mtr-nav__logo-img" />
           </button>
           <ul className="mtr-nav__links">
             {[["Features", "features"], ["How It Works", "process"], ["Studio", "showcase"]].map(([lbl, id]) => (
@@ -441,8 +441,9 @@ export default function MeteoraLanding() {
             <a href="mailto:ansh72126@gmail.com" className="mtr-footer__soc" aria-label="Email"><IconMail /></a>
           </div>
           <div className="mtr-footer__right">
-            <a href="/privacy" className="mtr-footer__privacy">Privacy Policy</a>
-            <p className="mtr-footer__made">&copy; {year} Meteora.</p>
+            <a className="mtr-footer__made" href="/privacy" target="_blank" rel="noopener noreferrer">
+              &copy; {year} Meteora.
+            </a>
           </div>
         </div>
       </footer>
