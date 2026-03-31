@@ -1406,6 +1406,21 @@ body {
   transform: translateY(-2px);
 }
 
+.mtr-footer__privacy {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.mtr-footer__privacy:hover {
+  color: var(--accent);
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
   .mtr-nav__links {

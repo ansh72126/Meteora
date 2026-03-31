@@ -441,6 +441,7 @@ export default function MeteoraLanding() {
             <a href="mailto:ansh72126@gmail.com" className="mtr-footer__soc" aria-label="Email"><IconMail /></a>
           </div>
           <div className="mtr-footer__right">
+            <a href="/privacy" className="mtr-footer__privacy">Privacy Policy</a>
             <p className="mtr-footer__made">&copy; {year} Meteora.</p>
           </div>
         </div>
