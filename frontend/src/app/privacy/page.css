@@ -1,0 +1,91 @@
+.privacy-page {
+  min-height: 100vh;
+  padding: 48px 20px 64px;
+  background:
+    radial-gradient(900px 500px at -10% -10%, rgba(112, 99, 255, 0.18), transparent 65%),
+    radial-gradient(750px 420px at 120% 0%, rgba(39, 184, 255, 0.18), transparent 62%),
+    #090d18;
+  color: #e8edf8;
+}
+
+.privacy-shell {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.privacy-header {
+  margin-bottom: 20px;
+}
+
+.privacy-eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8ea3ff;
+}
+
+.privacy-header h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 42px);
+  line-height: 1.1;
+  color: #f6f8ff;
+}
+
+.privacy-updated {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #a5b3d2;
+}
+
+.privacy-card {
+  margin-top: 16px;
+  padding: 22px 22px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(143, 158, 197, 0.28);
+  background: rgba(12, 18, 33, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.privacy-card h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: #f2f6ff;
+}
+
+.privacy-card p {
+  margin: 0 0 10px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #d3ddf4;
+}
+
+.privacy-card p:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-card a {
+  color: #9ec2ff;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(158, 194, 255, 0.75);
+}
+
+.privacy-card a:hover {
+  color: #bfd6ff;
+}
+
+@media (max-width: 640px) {
+  .privacy-page {
+    padding: 28px 14px 40px;
+  }
+
+  .privacy-card {
+    padding: 18px 16px;
+    border-radius: 14px;
+  }
+
+  .privacy-card h2 {
+    font-size: 18px;
+  }
+}
