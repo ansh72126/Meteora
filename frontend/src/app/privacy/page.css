@@ -2,10 +2,11 @@
   min-height: 100vh;
   padding: 48px 20px 64px;
   background:
-    radial-gradient(900px 500px at -10% -10%, rgba(112, 99, 255, 0.18), transparent 65%),
-    radial-gradient(750px 420px at 120% 0%, rgba(39, 184, 255, 0.18), transparent 62%),
-    #090d18;
-  color: #e8edf8;
+    radial-gradient(860px 440px at -8% -12%, rgba(0, 180, 216, 0.16), transparent 64%),
+    radial-gradient(680px 380px at 108% 2%, rgba(0, 180, 216, 0.12), transparent 60%),
+    linear-gradient(180deg, #0d1117 0%, #0a0e14 100%);
+  color: #e8edf2;
+  font-family: "DM Sans", sans-serif;
 }
 
 .privacy-shell {
@@ -15,6 +16,18 @@
 
 .privacy-header {
   margin-bottom: 20px;
+  position: relative;
+}
+
+.privacy-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 88px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(0, 180, 216, 0.9), rgba(0, 180, 216, 0.12));
 }
 
 .privacy-eyebrow {
@@ -23,42 +36,46 @@
   letter-spacing: 0.12em;
   font-size: 12px;
   font-weight: 700;
-  color: #8ea3ff;
+  color: #00b4d8;
 }
 
 .privacy-header h1 {
   margin: 0;
   font-size: clamp(30px, 5vw, 42px);
   line-height: 1.1;
-  color: #f6f8ff;
+  color: #f0f6fc;
+  font-family: "DM Serif Display", serif;
 }
 
 .privacy-updated {
   margin: 10px 0 0;
   font-size: 14px;
-  color: #a5b3d2;
+  color: #8b9db0;
 }
 
 .privacy-card {
   margin-top: 16px;
   padding: 22px 22px 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(143, 158, 197, 0.28);
-  background: rgba(12, 18, 33, 0.72);
+  border-radius: 14px;
+  border: 1px solid #1c2a38;
+  background:
+    linear-gradient(180deg, rgba(17, 24, 32, 0.95) 0%, rgba(13, 18, 25, 0.95) 100%);
+  box-shadow: 0 10px 26px rgba(2, 8, 18, 0.35);
   backdrop-filter: blur(4px);
 }
 
 .privacy-card h2 {
   margin: 0 0 12px;
   font-size: 20px;
-  color: #f2f6ff;
+  color: #f0f6fc;
+  font-family: "DM Serif Display", serif;
 }
 
 .privacy-card p {
   margin: 0 0 10px;
   font-size: 15px;
   line-height: 1.75;
-  color: #d3ddf4;
+  color: #8b9db0;
 }
 
 .privacy-card p:last-child {
@@ -66,13 +83,15 @@
 }
 
 .privacy-card a {
-  color: #9ec2ff;
+  color: #00b4d8;
   text-decoration: none;
-  border-bottom: 1px dashed rgba(158, 194, 255, 0.75);
+  border-bottom: 1px dashed rgba(0, 180, 216, 0.65);
+  transition: color 180ms ease, border-color 180ms ease;
 }
 
 .privacy-card a:hover {
-  color: #bfd6ff;
+  color: #30cae8;
+  border-color: rgba(48, 202, 232, 0.8);
 }
 
 @media (max-width: 640px) {
