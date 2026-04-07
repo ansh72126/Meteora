@@ -1079,13 +1079,6 @@ export default function Home() {
                 <span className="ax-btn-label">Verify &rarr;</span>
               </button>
 
-              <div className="ax-form-footer">
-                Didn&rsquo;t receive a code?{" "}
-                <button className="ax-link-btn" type="button"
-                  onClick={() => showMsg("Verification code resent!", "success")}>
-                  Resend code
-                </button>
-              </div>
             </div>
           )}
 
